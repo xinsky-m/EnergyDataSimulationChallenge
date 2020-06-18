@@ -32,9 +32,8 @@ class ChartController < ApplicationController
     @r1 = pearson1.r.round(4)
     @r2 = pearson2.r.round(4)
 
-    gon.data_g2 = []
-    EnergyData.find_each do |e|
-      gon.data_g2 << {x: e.daylight, y: e.energy_production}
+    gon.data_g2 = EnergyData.all.map do |e|
+      {x: e.daylight, y: e.energy_production}
     end
   end
 
