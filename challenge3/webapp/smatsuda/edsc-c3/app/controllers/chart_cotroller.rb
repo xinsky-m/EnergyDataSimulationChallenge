@@ -1,17 +1,15 @@
 class ChartController < ApplicationController
   def index
-    gon.year_month_g1 = []
-    label_list = []
-    EnergyData.select(:label).distinct.each do |l|
-      label_list << l.label
+    gon.year_month_g1 = []    
+    label_list = EnergyData.select(:label).distinct.map do |l|
+      l.label
     end
     label_list = label_list.sort
     gon.year_month_g1 = convert_to_year_month(label_list)
 
     gon.energy_production_g1 = {}
-    city_list = []
-    House.select(:city).distinct.each do |c|
-      city_list << c.city
+    city_list = House.select(:city).distinct.map do |c|
+      c.city
     end
     city_list.each do |city|
       energy_production = []
